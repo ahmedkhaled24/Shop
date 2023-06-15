@@ -14,8 +14,11 @@ import androidx.navigation.fragment.findNavController
 import com.hamtary.myapplication.data.model.ProductListResponseModel
 import com.hamtary.myapplication.databinding.FragmentListOfItemsBinding
 import com.hamtary.myapplication.utils.ConnectivityReceiver
+import dagger.hilt.android.AndroidEntryPoint
 
 private const val TAG = "ListOfItemsFragment"
+
+@AndroidEntryPoint
 class ListOfItemsFragment: Fragment(),
     ListOfItemsAdapter.ProductListViewHolder.OnItemClickListener,
     ConnectivityReceiver.ConnectivityReceiverListener {
@@ -25,15 +28,14 @@ class ListOfItemsFragment: Fragment(),
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentListOfItemsBinding.inflate(inflater, container, false)
-
-        requireActivity().
-        registerReceiver(ConnectivityReceiver(), IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
-
-        renderProductListData()
-
+        requireActivity().registerReceiver(ConnectivityReceiver(), IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        renderProductListData()
+    }
 
     private fun renderProductListData() {
         lifecycleScope.launchWhenCreated {
@@ -85,7 +87,6 @@ class ListOfItemsFragment: Fragment(),
             binding.productListRv.visibility = View.VISIBLE
             if(binding.productListRv.adapter == null)
                 viewModel.getProductList()
-
         }
     }
 }
