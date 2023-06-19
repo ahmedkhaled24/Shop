@@ -33,11 +33,6 @@
         <item name="fontFamily">@font/poppins_medium</item>
     </style>
 
-    <style name="SwitchCompatStyle" >
-        <item name="thumbTint">@color/switch_color</item>
-        <item name="trackTint">@color/switch_color</item>
-    </style>
-
 
     <style name="RadioButtonStyle" parent="Widget.AppCompat.CompoundButton.RadioButton">
         <item name="colorControlNormal">@color/grey</item>
